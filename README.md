@@ -178,3 +178,10 @@ Then log out and log back in.
 
 This is a learning project. Do not expose publicly without adding CSRF protection, stricter validation, and hardening.
 This has some security issues, I might fix some of them later but if you're gonna expose it to the internet then you need to secure it and of course run it in a container.
+
+
+# Screenshots
+
+<img width="1919" height="953" alt="image" src="https://github.com/user-attachments/assets/18a60730-4016-488d-bf3c-7aaff56ab33c" />
+
+<img width="1915" height="950" alt="image" src="https://github.com/user-attachments/assets/1e33e3a0-18a4-4a25-94f1-2a7005ce5899" />
