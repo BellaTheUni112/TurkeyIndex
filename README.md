@@ -111,6 +111,18 @@ Open:
 http://localhost:8046
 ```
 
+Fix for a doohickey that broke
+
+```sql
+USE torrents;
+
+CREATE TABLE uploads (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
 ---
 
 ## 8. Production setup (Apache)
