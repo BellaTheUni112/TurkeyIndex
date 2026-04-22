@@ -14,9 +14,13 @@ For debian-based Linux distros
 CHANGE THE PASSWORD IN DB.PHP, DO IT. CHANGE IT FROM "$pdo = new PDO(", "torrent", "strongpasswordyoushouldchange");" to ", "torrent", "whatever password you want just not this exactly in quotes;"
 
 `sudo apt update`
+
 `sudo apt install php php-mysql mariadb-server`
+
 `sudo systemctl enable mariadb`
+
 `sudo systemctl start mariadb`
+
 `sudo mysql`
 
 In MySQL:
@@ -59,10 +63,15 @@ Then back in the Linux shell
 or if you want it on startup
 
 `sudo cp -r /path/to/your/installation/ /var/www/html/torrentindex`
+
 `sudo chown -R www-data:www-data /var/www/html/torrentindex`
+
 `sudo chmod -R 755 /var/www/html/torrentindex`
+
 `sudo apt install apache2 libapache2-mod-php`
+
 `sudo systemctl enable apache2`
+
 `sudo systemctl start apache2`
 
 After installation, create an account then
