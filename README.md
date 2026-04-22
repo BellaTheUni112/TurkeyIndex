@@ -2,10 +2,9 @@
 
 Has some nice features like rate limiting, account age requirements, an admin panel (serverip:whateverportyouused/admin.php)
 
-
 # Installation
 
-For debian-based Linux distros
+For debian-based Linux distros (some commands are fucked since in github's infinite wisdom they formatted it like this, so get commands from https://pastebin.com/Y4HnXPZr instead)
 
 
 `git clone https://github.com/BellaTheUni112/TurkeyIndex.git`
