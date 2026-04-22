@@ -1,29 +1,65 @@
-# A nice little PHP torrent index.
+# TurkeyIndex
 
-Has some nice features like rate limiting, account age requirements, an admin panel (serverip:whateverportyouused/admin.php)
+A simple PHP-based torrent index with:
+- User accounts (login/register)
+- Account age restrictions
+- Upload rate limiting
+- Admin panel (`/admin.php`)
+- MySQL/MariaDB backend
+- Pagination + search
 
-# Installation
+---
 
-For debian-based Linux distros (some commands are fucked since in github's infinite wisdom they formatted it like this, so get commands from https://pastebin.com/Y4HnXPZr instead)
+# Installation (Debian-based Linux)
 
+## 1. Clone the project
 
-`git clone https://github.com/BellaTheUni112/TurkeyIndex.git`
-`cd TurkeyIndex`
+```bash
+git clone https://github.com/BellaTheUni112/TurkeyIndex.git
+cd TurkeyIndex
+```
 
-CHANGE THE PASSWORD IN DB.PHP, DO IT. CHANGE IT FROM "$pdo = new PDO(", "torrent", "strongpasswordyoushouldchange");" to ", "torrent", "whatever password you want just not this exactly in quotes;"
+---
 
-`sudo apt update`
+## 2. Configure database credentials
 
-`sudo apt install php php-mysql mariadb-server`
+IMPORTANT: Change your DB password in `db.php`
 
-`sudo systemctl enable mariadb`
+```php
+$pdo = new PDO(
+  "mysql:host=localhost;dbname=torrents;charset=utf8mb4",
+  "torrent",
+  "your_secure_password_here"
+);
+```
 
-`sudo systemctl start mariadb`
+---
 
-`sudo mysql`
+## 3. Install dependencies
 
-In MySQL:
+```bash
+sudo apt update
+sudo apt install php php-mysql mariadb-server
+```
 
+---
+
+## 4. Start MariaDB
+
+```bash
+sudo systemctl enable mariadb
+sudo systemctl start mariadb
+```
+
+---
+
+## 5. Create database + tables
+
+```bash
+sudo mysql
+```
+
+```sql
 CREATE DATABASE torrents;
 USE torrents;
 
@@ -49,32 +85,83 @@ CREATE TABLE uploads (
   user_id INT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+```
 
-CREATE USER 'torrent'@'localhost' IDENTIFIED BY 'whatever password you used in db.php';
+---
+
+## 6. Create database user
+
+```sql
+CREATE USER 'torrent'@'localhost' IDENTIFIED BY 'your_secure_password_here';
 GRANT ALL PRIVILEGES ON torrents.* TO 'torrent'@'localhost';
 FLUSH PRIVILEGES;
 EXIT;
+```
 
-Then back in the Linux shell
+---
 
-`php -S 0.0.0.0:8046`
+## 7. Run development server
 
-or if you want it on startup
+```bash
+php -S 0.0.0.0:8046
+```
 
-`sudo cp -r /path/to/your/installation/ /var/www/html/torrentindex`
+Open:
+```
+http://localhost:8046
+```
 
-`sudo chown -R www-data:www-data /var/www/html/torrentindex`
+---
 
-`sudo chmod -R 755 /var/www/html/torrentindex`
+## 8. Production setup (Apache)
 
-`sudo apt install apache2 libapache2-mod-php`
+```bash
+sudo apt install apache2 libapache2-mod-php
 
-`sudo systemctl enable apache2`
+sudo cp -r . /var/www/html/torrentindex
 
-`sudo systemctl start apache2`
+sudo chown -R www-data:www-data /var/www/html/torrentindex
+sudo chmod -R 755 /var/www/html/torrentindex
 
-After installation, create an account then
+sudo systemctl enable apache2
+sudo systemctl start apache2
+```
 
-`sudo mysql`
+Open:
+```
+http://localhost/torrentindex
+```
 
-UPDATE users SET is_admin = 1 WHERE username = 'yourname';
+---
+
+## 9. Make yourself admin
+
+```bash
+sudo mysql
+```
+
+```sql
+USE torrents;
+
+UPDATE users
+SET is_admin = 1
+WHERE username = 'yourname';
+```
+
+Then log out and log back in.
+
+---
+
+# Notes
+
+- Admin panel: `/admin.php`
+- Users must:
+  - Be logged in
+  - Be 14+ days old to upload
+  - Respect upload rate limits
+
+---
+
+# Security warning
+
+This is a learning project. Do not expose publicly without adding CSRF protection, stricter validation, and hardening.
