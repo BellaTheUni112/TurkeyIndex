@@ -11,7 +11,7 @@ if (!$user) {
   $error = "You must be logged in to upload.";
 }
 
-elseif (strtotime($user['created_at']) > strtotime('-14 days')) {
+if (!$user['is_admin'] && strtotime($dbUser['created_at']) > strtotime('-14 days')) {
   $error = "Account must be at least 14 days old.";
 }
 
@@ -52,7 +52,6 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
         );
         $stmt->execute([$name, $hash, $magnet, $size]);
 
-        // Log upload
         $stmt = $pdo->prepare(
           "INSERT INTO uploads (user_id) VALUES (?)"
         );
