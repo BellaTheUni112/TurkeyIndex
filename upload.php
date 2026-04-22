@@ -73,7 +73,7 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <div style="background:#003366;color:white;padding:10px;">
   <a href="index.php" style="color:white;text-decoration:none;">
-    <strong>Mini Torrent Index</strong>
+    <strong>Turkey Index</strong>
   </a>
 </div>
 
