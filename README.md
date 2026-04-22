@@ -179,6 +179,7 @@ Then log out and log back in.
 This is a learning project. Do not expose publicly without adding CSRF protection, stricter validation, and hardening.
 This has some security issues, I might fix some of them later but if you're gonna expose it to the internet then you need to secure it and of course run it in a container.
 
+---
 
 # Screenshots
 
